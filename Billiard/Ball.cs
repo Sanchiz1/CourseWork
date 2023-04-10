@@ -167,7 +167,7 @@ namespace Billiard
             }
         }
         public void ChangeVelicities(Ball ball) {
-            Sound.MakeSound("sound1.wav");
+            Sound.MakeSound(Application.StartupPath + "\\Sounds/sound1.wav");
 
             /*
             double a = (Velocity - ball.Velocity).DotProduct((BallCenter - ball.BallCenter));

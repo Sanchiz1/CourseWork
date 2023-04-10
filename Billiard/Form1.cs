@@ -59,7 +59,7 @@ namespace Billiard
         private void Form1_Load(object sender, EventArgs e)
         {
             DoubleBuffered = true;
-            Sound.MakeSoundOnLoop("sound2.wav");
+            Sound.MakeSoundOnLoop(Application.StartupPath + "\\Sounds/sound2.wav");
             Main.Visible = false;
             Start.TabStop = false;
             Start.FlatStyle = FlatStyle.Flat;
@@ -255,7 +255,7 @@ namespace Billiard
             {
                 ResultLabel.Text = "DRAW!";
             }
-            Sound.MakeSound("victory.wav");
+            Sound.MakeSound(Application.StartupPath + "\\Sounds/victory.wav");
         }
         private void timer1_Tick(object sender, EventArgs e)
         {
@@ -279,7 +279,7 @@ namespace Billiard
                 {
                     if (holes[i].DetectCollision(balls[j]) && balls[j] != ball)
                     {
-                        Sound.MakeSound("hole.wav");
+                        Sound.MakeSound(Application.StartupPath + "\\Sounds/hole.wav");
                         balls.RemoveAt(j);
                         if (PlayerTurn)
                         {
@@ -292,7 +292,7 @@ namespace Billiard
                     }
                     else if (holes[i].DetectCollision(balls[j]) && balls[j] == ball)
                     {
-                        Sound.MakeSound("hole.wav");
+                        Sound.MakeSound(Application.StartupPath + "\\Sounds/hole.wav");
                         balls.RemoveAt(j);
                         WhiteBallMissing = true;
                     }
