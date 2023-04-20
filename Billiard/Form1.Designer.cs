@@ -40,8 +40,16 @@
             timer3 = new System.Windows.Forms.Timer(components);
             Scores = new Label();
             ResultLabel = new Label();
+            Settings = new Button();
+            SettingsBox = new PictureBox();
+            checkBoxMusic = new CheckBox();
+            checkBoxSoundEffects = new CheckBox();
+            checkBoxAiming = new CheckBox();
+            SettingsLabel = new Label();
+            MenuSettingButton = new Button();
             ((System.ComponentModel.ISupportInitialize)Main).BeginInit();
             ((System.ComponentModel.ISupportInitialize)Menu).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)SettingsBox).BeginInit();
             SuspendLayout();
             // 
             // timer1
@@ -162,12 +170,125 @@
             ResultLabel.Text = "label1";
             ResultLabel.TextAlign = ContentAlignment.MiddleCenter;
             // 
+            // Settings
+            // 
+            Settings.BackColor = Color.SaddleBrown;
+            Settings.Font = new Font("Segoe UI", 26.25F, FontStyle.Bold, GraphicsUnit.Point);
+            Settings.ForeColor = SystemColors.ButtonFace;
+            Settings.Location = new Point(194, 412);
+            Settings.Name = "Settings";
+            Settings.Size = new Size(302, 84);
+            Settings.TabIndex = 10;
+            Settings.Text = "Settings";
+            Settings.UseVisualStyleBackColor = false;
+            Settings.Click += Settings_Click;
+            // 
+            // SettingsBox
+            // 
+            SettingsBox.Anchor = AnchorStyles.None;
+            SettingsBox.BackColor = Color.FromArgb(255, 192, 128);
+            SettingsBox.Location = new Point(747, 21);
+            SettingsBox.MaximumSize = new Size(700, 700);
+            SettingsBox.Name = "SettingsBox";
+            SettingsBox.Size = new Size(700, 700);
+            SettingsBox.TabIndex = 11;
+            SettingsBox.TabStop = false;
+            // 
+            // checkBoxMusic
+            // 
+            checkBoxMusic.AutoSize = true;
+            checkBoxMusic.BackColor = Color.Transparent;
+            checkBoxMusic.Checked = true;
+            checkBoxMusic.CheckState = CheckState.Checked;
+            checkBoxMusic.Font = new Font("Segoe UI", 26.25F, FontStyle.Bold, GraphicsUnit.Point);
+            checkBoxMusic.ForeColor = Color.SaddleBrown;
+            checkBoxMusic.Location = new Point(938, 190);
+            checkBoxMusic.MinimumSize = new Size(300, 70);
+            checkBoxMusic.Name = "checkBoxMusic";
+            checkBoxMusic.Padding = new Padding(10);
+            checkBoxMusic.Size = new Size(300, 71);
+            checkBoxMusic.TabIndex = 12;
+            checkBoxMusic.Text = "Music";
+            checkBoxMusic.TextAlign = ContentAlignment.MiddleCenter;
+            checkBoxMusic.UseVisualStyleBackColor = false;
+            checkBoxMusic.CheckedChanged += checkBoxMusic_CheckedChanged;
+            // 
+            // checkBoxSoundEffects
+            // 
+            checkBoxSoundEffects.AutoSize = true;
+            checkBoxSoundEffects.BackColor = Color.Transparent;
+            checkBoxSoundEffects.Checked = true;
+            checkBoxSoundEffects.CheckState = CheckState.Checked;
+            checkBoxSoundEffects.Font = new Font("Segoe UI", 26.25F, FontStyle.Bold, GraphicsUnit.Point);
+            checkBoxSoundEffects.ForeColor = Color.SaddleBrown;
+            checkBoxSoundEffects.Location = new Point(938, 278);
+            checkBoxSoundEffects.MinimumSize = new Size(300, 70);
+            checkBoxSoundEffects.Name = "checkBoxSoundEffects";
+            checkBoxSoundEffects.Padding = new Padding(10);
+            checkBoxSoundEffects.Size = new Size(300, 71);
+            checkBoxSoundEffects.TabIndex = 13;
+            checkBoxSoundEffects.Text = "Sound effects";
+            checkBoxSoundEffects.TextAlign = ContentAlignment.MiddleCenter;
+            checkBoxSoundEffects.UseVisualStyleBackColor = false;
+            checkBoxSoundEffects.CheckedChanged += checkBoxSoundEffects_CheckedChanged;
+            // 
+            // checkBoxAiming
+            // 
+            checkBoxAiming.AutoSize = true;
+            checkBoxAiming.BackColor = Color.Transparent;
+            checkBoxAiming.Checked = true;
+            checkBoxAiming.CheckState = CheckState.Checked;
+            checkBoxAiming.Font = new Font("Segoe UI", 26.25F, FontStyle.Bold, GraphicsUnit.Point);
+            checkBoxAiming.ForeColor = Color.SaddleBrown;
+            checkBoxAiming.Location = new Point(938, 378);
+            checkBoxAiming.MinimumSize = new Size(300, 70);
+            checkBoxAiming.Name = "checkBoxAiming";
+            checkBoxAiming.Padding = new Padding(10);
+            checkBoxAiming.Size = new Size(300, 71);
+            checkBoxAiming.TabIndex = 14;
+            checkBoxAiming.Text = "Aiming";
+            checkBoxAiming.TextAlign = ContentAlignment.MiddleCenter;
+            checkBoxAiming.UseVisualStyleBackColor = false;
+            checkBoxAiming.CheckedChanged += checkBoxAiming_CheckedChanged;
+            // 
+            // SettingsLabel
+            // 
+            SettingsLabel.BackColor = Color.FromArgb(255, 192, 128);
+            SettingsLabel.Font = new Font("Segoe Script", 27.75F, FontStyle.Bold, GraphicsUnit.Point);
+            SettingsLabel.ForeColor = Color.SaddleBrown;
+            SettingsLabel.Location = new Point(837, 87);
+            SettingsLabel.Name = "SettingsLabel";
+            SettingsLabel.Size = new Size(531, 80);
+            SettingsLabel.TabIndex = 15;
+            SettingsLabel.Text = "Settings";
+            SettingsLabel.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // MenuSettingButton
+            // 
+            MenuSettingButton.BackColor = Color.SaddleBrown;
+            MenuSettingButton.Font = new Font("Segoe UI", 26.25F, FontStyle.Bold, GraphicsUnit.Point);
+            MenuSettingButton.ForeColor = SystemColors.ButtonFace;
+            MenuSettingButton.Location = new Point(938, 468);
+            MenuSettingButton.Name = "MenuSettingButton";
+            MenuSettingButton.Size = new Size(302, 84);
+            MenuSettingButton.TabIndex = 16;
+            MenuSettingButton.Text = "Menu";
+            MenuSettingButton.UseVisualStyleBackColor = false;
+            MenuSettingButton.Click += MenuSettingButton_Click;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.SaddleBrown;
             ClientSize = new Size(1468, 721);
+            Controls.Add(MenuSettingButton);
+            Controls.Add(SettingsLabel);
+            Controls.Add(checkBoxAiming);
+            Controls.Add(checkBoxSoundEffects);
+            Controls.Add(checkBoxMusic);
+            Controls.Add(SettingsBox);
+            Controls.Add(Settings);
             Controls.Add(ResultLabel);
             Controls.Add(Scores);
             Controls.Add(Player);
@@ -182,6 +303,7 @@
             Load += Form1_Load;
             ((System.ComponentModel.ISupportInitialize)Main).EndInit();
             ((System.ComponentModel.ISupportInitialize)Menu).EndInit();
+            ((System.ComponentModel.ISupportInitialize)SettingsBox).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -190,14 +312,21 @@
 
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.Timer timer2;
-        private PictureBox Main;
-        private PictureBox Menu;
-        private Button Start;
-        private Button Resume;
-        private Button MenuButton;
-        private Label Player;
-        private System.Windows.Forms.Timer timer3;
-        private Label Scores;
-        private Label ResultLabel;
+        public PictureBox Main;
+        public PictureBox Menu;
+        public Button Start;
+        public Button Resume;
+        public Button MenuButton;
+        public Label Player;
+        public Label Scores;
+        public Label ResultLabel;
+        public System.Windows.Forms.Timer timer3;
+        public Button Settings;
+        public PictureBox SettingsBox;
+        private CheckBox checkBoxMusic;
+        private CheckBox checkBoxSoundEffects;
+        private CheckBox checkBoxAiming;
+        public Label SettingsLabel;
+        public Button MenuSettingButton;
     }
 }

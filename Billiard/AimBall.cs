@@ -9,16 +9,16 @@ using System.Threading.Tasks;
 
 namespace Billiard
 {
-    public class Ball : IBall
+    public class AimBall : IBall
     {
         protected Vector2 Velocity = new Vector2(0, 0);
         protected Vector2 BallCenter = new Vector2(0, 0);
-        protected double Speed;
         protected Pen Pen;
         protected Brush Brush;
         protected bool MoveBall = true;
         public static int Diameter = 30;
-        
+        protected bool Collided = false;
+
         public Vector2 velocity
         {
             get
@@ -39,17 +39,6 @@ namespace Billiard
             set
             {
                 BallCenter = value;
-            }
-        }
-        public double speed
-        {
-            get
-            {
-                return Speed;
-            }
-            set
-            {
-                Speed = value;
             }
         }
         public bool moveBall
@@ -85,71 +74,70 @@ namespace Billiard
                 Brush = value;
             }
         }
-        public Ball(Vector2 velocity, Vector2 ballcenter, Pen pen, Brush brush) {
+        public bool collided
+        {
+            get
+            {
+                return Collided;
+            }
+            set
+            {
+                Collided = value;
+            }
+        }
+        public AimBall(Vector2 velocity, Vector2 ballcenter, Pen pen, Brush brush)
+        {
             Diameter = 30;
             Velocity = velocity;
-            BallCenter = new Vector2(ballcenter.X + Diameter / 2, ballcenter.Y + Diameter / 2);
+            BallCenter = new Vector2(ballcenter.X, ballcenter.Y);
             Pen = pen;
             Brush = brush;
-            Speed = 1;
         }
         public void ShowBall(PaintEventArgs e)
         {
             RectangleF rect = new RectangleF((float)BallCenter.X - Diameter / 2, (float)BallCenter.Y - Diameter / 2, Diameter, Diameter);
             e.Graphics.DrawEllipse(Pen, rect);
             e.Graphics.FillEllipse(Brush, rect);
-        }
-        public void MoveTheBall()
-        {
-            if (MoveBall == true)
-            {
-                BallCenter.X += Velocity.X * Speed;
-                BallCenter.Y += Velocity.Y * Speed;
-
-                Velocity.X *= 0.995;
-                Velocity.Y *= 0.995;
-                if ((Velocity.X < 0.03 && Velocity.X > -0.03) && (Velocity.Y < 0.03 && Velocity.Y > -0.03))
-                {
-                    Velocity.X = 0;
-                    Velocity.Y = 0;
-                }
-
-                if (BallCenter.X <= Game.topLeftX + Diameter / 2)
-                {
-                    Velocity.X = -Velocity.X / 2;
-                    BallCenter.X = Game.topLeftX + Diameter / 2;
-                }
-                if (BallCenter.X >= Game.topLeftX + Game.bottomRightX - Diameter / 2)
-                {
-                    Velocity.X = -Velocity.X / 2;
-                    BallCenter.X = Game.topLeftX + Game.bottomRightX - Diameter / 2;
-                }
-                if (BallCenter.Y <= Game.topLeftY + Diameter / 2)
-                {
-                    Velocity.Y = -Velocity.Y / 2;
-                    BallCenter.Y = Game.topLeftY + Diameter / 2;
-                }
-                if (BallCenter.Y >= Game.topLeftY + Game.bottomRightY - Diameter / 2)
-                {
-                    Velocity.Y = -Velocity.Y / 2;
-                    BallCenter.Y = Game.topLeftY + Game.bottomRightY - Diameter / 2;
-                }
-            }
+            e.Graphics.DrawLine(new Pen(Color.White, 2f), (int)ballCenter.X, (int)ballCenter.Y, (int)ballCenter.X + (int)Velocity.Scale(0.05).X, (int)ballCenter.Y + (int)Velocity.Scale(0.05).Y);
         }
         public bool DetectCollision(Ball ball)
         {
-            Vector2 distanceBallOneBallTwo = BallCenter - ball.BallCenter;
+            Vector2 distanceBallOneBallTwo = BallCenter - ball.ballCenter;
             float distance = (float)distanceBallOneBallTwo.Length();
             if (distance <= Diameter)
             {
+                Collided = true;
+                return true;
+            }
+            if (BallCenter.X <= Game.topLeftX + Diameter / 2)
+            {
+                Velocity.X = -Velocity.X / 2;
+                return true;
+            }
+            if (BallCenter.X >= Game.topLeftX + Game.bottomRightX - Diameter / 2)
+            {
+                Velocity.X = -Velocity.X / 2;
+                return true;
+            }
+            if (BallCenter.Y <= Game.topLeftY + Diameter / 2)
+            {
+                Velocity.Y = -Velocity.Y / 2;
+                return true;
+            }
+            if (BallCenter.Y >= Game.topLeftY + Game.bottomRightY - Diameter / 2)
+            {
+                Velocity.Y = -Velocity.Y / 2;
                 return true;
             }
             else
             {
+                Collided = false;
                 return false;
             }
         }
-        public void ChangeVelicities(Ball ball) {
+        public void ChangeVelicities(Ball ball)
+        {
+
             /*
             double a = (Velocity - ball.Velocity).DotProduct((BallCenter - ball.BallCenter));
             a = a / (BallCenter - ball.BallCenter).Length();
@@ -191,34 +179,14 @@ namespace Billiard
             Vector3 ballOneNewVelocity = Velocity + (ball.Velocity - Velocity);
             Vector3 ballTwoNewVelocity = ball.Velocity + (Velocity - ball.Velocity);
             */
-
-            if (Velocity.Length() > ball.Velocity.Length())
-            {
-                ball.Speed = Speed;
-                Speed /= 2;
-            }
-            else if (Velocity.Length() < ball.Velocity.Length())
-            {
-                Speed = ball.Speed;
-                ball.Speed /= 2;
-            }
-            Vector2 normal1 = new Vector2();
-            normal1.Normalize(BallCenter - ball.BallCenter);
-            Vector2 normal2 = new Vector2();
-            normal2.Normalize(ball.BallCenter - BallCenter);
-            double overlap = Diameter - (BallCenter - ball.BallCenter).Length();
-            BallCenter += normal1.Scale((overlap + 1) / 2);
-            ball.BallCenter += normal2.Scale((overlap + 1) / 2);
-            Vector2 centresVector = BallCenter - ball.BallCenter;
+            Vector2 centresVector = BallCenter - ball.ballCenter;
             Vector2 ballOnePerpendicular = centresVector.PerpendicularComponent(Velocity);
-            Vector2 ballTwoPerpendicular = centresVector.PerpendicularComponent(ball.Velocity);
-            Vector2 ballTwoPara = centresVector.ParralelComponent(ball.Velocity);
+            Vector2 ballTwoPerpendicular = centresVector.PerpendicularComponent(ball.velocity);
+            Vector2 ballTwoPara = centresVector.ParralelComponent(ball.velocity);
             Vector2 ballOneNewVelocity = ballTwoPara + ballOnePerpendicular; //http://sinepost.wordpress.com/category/mathematics/geometry/trigonometry/
-            Vector2 centresVector2 = ball.BallCenter - BallCenter;
             Vector2 ballOnePara = centresVector.ParralelComponent(Velocity);
-            Vector2 ballTwoNewVelocity = ballOnePara + ballTwoPerpendicular;
-            ball.Velocity = ballTwoNewVelocity;
             Velocity = ballOneNewVelocity;
+
         }
     }
 }

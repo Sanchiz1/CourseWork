@@ -51,7 +51,7 @@ namespace Billiard
         {
             Vector2 distanceToBall = Position - ball.ballCenter;
             float distance = (float)distanceToBall.Length();
-            if (distance <= ball.diameter)
+            if (distance <= Ball.Diameter)
             {
                 return true;
             }

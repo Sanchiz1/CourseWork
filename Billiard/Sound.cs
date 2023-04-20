@@ -18,14 +18,5 @@ namespace Billiard
             waveOut.Init(audioFile);
             waveOut.Play();
         }
-        public static void MakeSoundOnLoop(string SoundFile)
-        {
-            var audioFile = new WaveFileReader(SoundFile);
-            var loopingStream = new LoopStream(audioFile);
-            var waveOut = new WaveOut();
-            waveOut.DeviceNumber = 0;
-            waveOut.Init(loopingStream);
-            waveOut.Play();
-        }
     }
 }
