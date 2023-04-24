@@ -12,7 +12,7 @@ namespace Billiard
 {
     public class Game
     {
-        static Form1 form = Application.OpenForms.OfType<Form1>().FirstOrDefault();
+        static Billiards form = Application.OpenForms.OfType<Billiards>().FirstOrDefault();
         Vector2 mouseLocation = new Vector2(50, 50);
         Pen blackPen = new Pen(Color.Black, 4f);
         bool draweDirLine;
@@ -178,6 +178,7 @@ namespace Billiard
                 {
                     ballsCount = 0;
                     WhiteBallMissing = false;
+                    form.Main.Cursor = Cursors.Default;
                     form.timer3.Start();
                 }
             }
@@ -221,6 +222,7 @@ namespace Billiard
                         if (form.settings.soundEffects) Sound.MakeSound(Application.StartupPath + "\\Sounds/hole.wav");
                         ballsCount = 1;
                         WhiteBallMissing = true;
+                        form.Main.Cursor = Cursors.Hand;
                     }
                 }
             }

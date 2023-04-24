@@ -14,13 +14,13 @@ using NAudio.Wave;
 
 namespace Billiard
 {
-    public partial class Form1 : Form
+    public partial class Billiards : Form
     {
         public Game game;
         public Settings settings;
         public WaveOut waveOut = new WaveOut();
 
-        public Form1()
+        public Billiards()
         {
             InitializeComponent();
         }
@@ -50,6 +50,7 @@ namespace Billiard
             Settings.Left = (Resume.Parent.Width - Resume.Width) / 2;
             MenuButton.Parent = Main;
             Player.Parent = Main;
+            Player.Left = (Player.Parent.Width - Player.Width) / 2;
             Scores.Parent = Main;
             ResultLabel.Parent = Menu;
             ResultLabel.Left = (ResultLabel.Parent.Width - ResultLabel.Width) / 2;

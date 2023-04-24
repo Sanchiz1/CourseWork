@@ -1,6 +1,6 @@
 ﻿namespace Billiard
 {
-    partial class Form1
+    partial class Billiards
     {
         /// <summary>
         ///  Required designer variable.
@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Billiards));
             timer1 = new System.Windows.Forms.Timer(components);
             timer2 = new System.Windows.Forms.Timer(components);
             Main = new PictureBox();
@@ -130,13 +131,13 @@
             // 
             // Player
             // 
-            Player.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            Player.Anchor = AnchorStyles.Top;
             Player.AutoSize = true;
-            Player.Font = new Font("Segoe UI", 20.25F, FontStyle.Bold, GraphicsUnit.Point);
+            Player.Font = new Font("Segoe UI", 27.75F, FontStyle.Bold, GraphicsUnit.Point);
             Player.ForeColor = SystemColors.ButtonFace;
             Player.Location = new Point(1197, 9);
             Player.Name = "Player";
-            Player.Size = new Size(259, 37);
+            Player.Size = new Size(351, 50);
             Player.TabIndex = 6;
             Player.Text = "Second player turn";
             // 
@@ -152,7 +153,7 @@
             Scores.AutoSize = true;
             Scores.Font = new Font("Segoe UI", 15.75F, FontStyle.Bold, GraphicsUnit.Point);
             Scores.ForeColor = SystemColors.ButtonFace;
-            Scores.Location = new Point(1197, 59);
+            Scores.Location = new Point(1197, 12);
             Scores.Name = "Scores";
             Scores.Size = new Size(214, 60);
             Scores.TabIndex = 7;
@@ -187,7 +188,7 @@
             // 
             SettingsBox.Anchor = AnchorStyles.None;
             SettingsBox.BackColor = Color.FromArgb(255, 192, 128);
-            SettingsBox.Location = new Point(747, 21);
+            SettingsBox.Location = new Point(734, 51);
             SettingsBox.MaximumSize = new Size(700, 700);
             SettingsBox.Name = "SettingsBox";
             SettingsBox.Size = new Size(700, 700);
@@ -276,7 +277,7 @@
             MenuSettingButton.UseVisualStyleBackColor = false;
             MenuSettingButton.Click += MenuSettingButton_Click;
             // 
-            // Form1
+            // Billiards
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
@@ -297,8 +298,9 @@
             Controls.Add(Start);
             Controls.Add(Menu);
             Controls.Add(Main);
-            Name = "Form1";
-            Text = "Form1";
+            Icon = (Icon)resources.GetObject("$this.Icon");
+            Name = "Billiards";
+            Text = "Billiards";
             WindowState = FormWindowState.Maximized;
             Load += Form1_Load;
             ((System.ComponentModel.ISupportInitialize)Main).EndInit();
