@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Billiard
+namespace Billiard.Balls
 {
     public interface IBall
     {

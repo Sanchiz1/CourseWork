@@ -54,7 +54,7 @@ namespace Billiard
         }
         public double DotProduct(Vector2 v2)
         {
-            return (x * v2.X + y * v2.Y);
+            return x * v2.X + y * v2.Y;
         }
         public void Normalize(Vector2 v)
         {
@@ -65,8 +65,8 @@ namespace Billiard
         public double AngleBetween(Vector2 v2)
         {
             double answer = 0;
-            double top = this.DotProduct(v2);
-            double under = this.Length() * v2.Length();
+            double top = DotProduct(v2);
+            double under = Length() * v2.Length();
             double angle;
             if (under != 0)
                 answer = top / under;
@@ -75,7 +75,7 @@ namespace Billiard
             if (answer > 1) answer = 1;
             if (answer < -1) answer = -1;
             angle = Math.Acos(answer);
-            return (angle * 180 / Math.PI);
+            return angle * 180 / Math.PI;
         }
         public Vector2 Unit()
         {
@@ -92,12 +92,12 @@ namespace Billiard
                 scale = dotProduct / lengthSquared;
             else
                 return new Vector2();
-            return new Vector2(this.Scale(scale));
+            return new Vector2(Scale(scale));
         }
 
         public Vector2 PerpendicularComponent(Vector2 v2)
         {
-            return new Vector2(v2 - this.ParralelComponent(v2));
+            return new Vector2(v2 - ParralelComponent(v2));
         }
 
         public Vector2 Scale(double scale)

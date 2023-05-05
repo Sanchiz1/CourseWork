@@ -1,4 +1,5 @@
-﻿using NAudio.Wave;
+﻿using Billiard;
+using NAudio.Wave;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -21,7 +22,7 @@ namespace Billiard
             float length;
             if ((BallCenter - mouseLocation).Length() > MaxVelocity)
             {
-                v.Normalize((BallCenter - mouseLocation));
+                v.Normalize(BallCenter - mouseLocation);
                 Velocity.X = v.X;
                 Velocity.Y = v.Y;
                 Speed = MaxVelocity / 20;
@@ -29,8 +30,8 @@ namespace Billiard
             }
             else
             {
-                Velocity.X = (BallCenter.X - mouseLocation.X);
-                Velocity.Y = (BallCenter.Y - mouseLocation.Y);
+                Velocity.X = BallCenter.X - mouseLocation.X;
+                Velocity.Y = BallCenter.Y - mouseLocation.Y;
                 length = (float)Velocity.Length();
                 Speed = length / 20;
             }

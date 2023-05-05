@@ -51,7 +51,8 @@ namespace Billiard
             MenuButton.Parent = Main;
             Player.Parent = Main;
             Player.Left = (Player.Parent.Width - Player.Width) / 2;
-            Scores.Parent = Main;
+            lblFirstPlyerScore.Parent = Main;
+            lblSecondPlyerScore.Parent = Main;
             ResultLabel.Parent = Menu;
             ResultLabel.Left = (ResultLabel.Parent.Width - ResultLabel.Width) / 2;
             ResultLabel.Visible = false;
@@ -70,8 +71,15 @@ namespace Billiard
             MenuSettingButton.Left = (MenuSettingButton.Parent.Width - MenuSettingButton.Width) / 2;
             MenuSettingButton.TabStop = false;
             MenuSettingButton.FlatStyle = FlatStyle.Flat;
+            LanguageSelect.Parent = SettingsBox;
+            LanguageSelect.Left = (LanguageSelect.Parent.Width - LanguageSelect.Width) / 2;
+            LanguageSelect.FlatStyle = FlatStyle.Flat;
+
+
+
             game = new Game();
             settings = new Settings();
+            settings.language = "English";
             //if (settings.music) Sound.MakeSoundOnLoop(Application.StartupPath + "\\Sounds/sound2.wav");
             var audioFile = new WaveFileReader(Application.StartupPath + "\\Sounds/sound2.wav");
             var loopingStream = new LoopStream(audioFile);
@@ -173,6 +181,40 @@ namespace Billiard
         private void checkBoxSoundEffects_CheckedChanged(object sender, EventArgs e)
         {
             settings.soundEffects = !settings.soundEffects;
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            if (settings.language == "Українська")
+            {
+                Start.Text = "Start";
+                Resume.Text = "Resume";
+                Settings.Text = "Settings";
+                MenuButton.Text = "Menu";
+                checkBoxMusic.Text = "Music";
+                checkBoxSoundEffects.Text = "Sound effects";
+                checkBoxAiming.Text = "Aiming";
+                SettingsLabel.Text = "Settings";
+                MenuSettingButton.Text = "Settings";
+                LanguageSelect.Text = "English";
+                settings.language = "English";
+                lblFirstPlyerScore.Location = new Point(lblFirstPlyerScore.Location.X + 7, lblFirstPlyerScore.Location.Y);
+            }
+            else
+            {
+                Start.Text = "Нова гра";
+                Resume.Text = "Продовжити";
+                Settings.Text = "Налаштування";
+                MenuButton.Text = "Меню";
+                checkBoxMusic.Text = "Музика";
+                checkBoxSoundEffects.Text = "Звукові ефекти";
+                checkBoxAiming.Text = "Прицілювання";
+                SettingsLabel.Text = "Налаштування";
+                MenuSettingButton.Text = "Налаштування";
+                LanguageSelect.Text = "Українська";
+                settings.language = "Українська";
+                lblFirstPlyerScore.Location = new Point(lblFirstPlyerScore.Location.X - 7, lblFirstPlyerScore.Location.Y);
+            }
         }
     }
 }

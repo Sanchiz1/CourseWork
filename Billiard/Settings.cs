@@ -11,6 +11,7 @@ namespace Billiard
         private bool Music = true;
         private bool SoundEffects = true;
         private bool Aim = true;
+        private string Language;
         public bool music
         {
             get
@@ -42,6 +43,17 @@ namespace Billiard
             set
             {
                 Aim = value;
+            }
+        }
+        public string language
+        {
+            get
+            {
+                return Language;
+            }
+            set
+            {
+                Language = value;
             }
         }
         public Settings()

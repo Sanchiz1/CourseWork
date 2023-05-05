@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 using static System.Formats.Asn1.AsnWriter;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.Window;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using Billiard.Balls;
+using Billiard;
+using Billiard.Properties;
 
 namespace Billiard
 {
@@ -49,7 +52,7 @@ namespace Billiard
         public List<Color> colors = new List<Color>();
         List<Ball> balls = new List<Ball>();
         List<Hole> holes = new List<Hole>();
-
+        public ScoredBalls scoredBalls;
 
         public Game()
         {
@@ -79,9 +82,12 @@ namespace Billiard
             colors.Add(Color.Orange);
             AddElements();
             form.Main.BringToFront();
+            scoredBalls = new ScoredBalls();
+            scoredBalls.GeneratePlaces();
         }
         public void Drawing(PaintEventArgs e) {
             Graphics g = e.Graphics;
+            scoredBalls.ShowScoredBalls(e);
             g.DrawRectangle(blackPen, board);
             g.FillRectangle(new SolidBrush(Color.ForestGreen), board);
             for (int i = 0; i < holes.Count; ++i)
@@ -207,15 +213,17 @@ namespace Billiard
                     if (holes[i].DetectCollision(balls[j]) && balls[j] != balls[0])
                     {
                         if(form.settings.soundEffects) Sound.MakeSound(Application.StartupPath + "\\Sounds/hole.wav");
-                        balls.RemoveAt(j);
                         if (PlayerTurn)
                         {
                             FirstPlayerScore++;
+                            scoredBalls.FirstPlayerScored(balls[j]);
                         }
                         else
                         {
                             SecondPlayerScore++;
+                            scoredBalls.SecondPlayerScored(balls[j]);
                         }
+                        balls.RemoveAt(j);
                     }
                     else if (holes[i].DetectCollision(balls[j]) && balls[j] == balls[0])
                     {
@@ -267,13 +275,39 @@ namespace Billiard
             NextTurn = a;
             if (PlayerTurn)
             {
-                form.Player.Text = "First player turn";
+                if(form.settings.language == "Українська")
+                {
+                    form.Player.Text = "Хід першого гравця";
+
+                }
+                else
+                {
+                    form.Player.Text = "First player turn";
+                }
             }
             else
             {
-                form.Player.Text = "Second player turn";
+                if (form.settings.language == "Українська")
+                {
+                    form.Player.Text = "Хід другого гравця";
+
+                }
+                else
+                {
+                    form.Player.Text = "Second player turn";
+                }
             }
-            form.Scores.Text = $"First player score:      {FirstPlayerScore}" + Environment.NewLine + $"Second player score: {SecondPlayerScore}";
+            if (form.settings.language == "Українська")
+            {
+                form.lblFirstPlyerScore.Text = $"Рахунок першого гравця: {FirstPlayerScore}";
+                form.lblSecondPlyerScore.Text = $"Рахунок другого гравця: {SecondPlayerScore}";
+            }
+            else
+            {
+                form.lblFirstPlyerScore.Text = $"First player score: {FirstPlayerScore}";
+                form.lblSecondPlyerScore.Text = $"Second player score: {SecondPlayerScore}";
+            }
+            
             if (FirstPlayerScore + SecondPlayerScore == 10)
             {
                 EndGame();
@@ -293,21 +327,42 @@ namespace Billiard
             form.ResultLabel.Visible = true;
             if (FirstPlayerScore > SecondPlayerScore)
             {
-                form.ResultLabel.Text = "FIRST PLAYER WON!";
+                if (form.settings.language == "Українська")
+                {
+                    form.ResultLabel.Text = "ПЕРШИЙ ГРАВЕЦЬ ПЕРЕМІГ!";
+                }
+                else
+                {
+                    form.ResultLabel.Text = "FIRST PLAYER WON!";
+                }
             }
             else if (SecondPlayerScore > FirstPlayerScore)
             {
-                form.ResultLabel.Text = "SECOND PLAYER WON!";
+                if (form.settings.language == "Українська")
+                {
+                    form.ResultLabel.Text = "ДРУГИЙ ГРАВЕЦЬ ПЕРЕМІГ!";
+                }
+                else
+                {
+                    form.ResultLabel.Text = "SECOND PLAYER WON!";
+                }
             }
             else
             {
-                form.ResultLabel.Text = "DRAW!";
+                if (form.settings.language == "Українська")
+                {
+                    form.ResultLabel.Text = "НІЧИЯ!";
+                }
+                else
+                {
+                    form.ResultLabel.Text = "DRAW!";
+                }
             }
             if (form.settings.soundEffects) Sound.MakeSound(Application.StartupPath + "\\Sounds/victory.wav");
         }
         public void Resume_Click()
         {
-            if (balls.Count > 1)
+            if (balls.Count > 10)
             {
                 form.Main.Visible = true;
                 form.Menu.Visible = false;

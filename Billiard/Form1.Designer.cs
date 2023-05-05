@@ -39,7 +39,7 @@
             MenuButton = new Button();
             Player = new Label();
             timer3 = new System.Windows.Forms.Timer(components);
-            Scores = new Label();
+            lblSecondPlyerScore = new Label();
             ResultLabel = new Label();
             Settings = new Button();
             SettingsBox = new PictureBox();
@@ -48,6 +48,8 @@
             checkBoxAiming = new CheckBox();
             SettingsLabel = new Label();
             MenuSettingButton = new Button();
+            lblFirstPlyerScore = new Label();
+            LanguageSelect = new Button();
             ((System.ComponentModel.ISupportInitialize)Main).BeginInit();
             ((System.ComponentModel.ISupportInitialize)Menu).BeginInit();
             ((System.ComponentModel.ISupportInitialize)SettingsBox).BeginInit();
@@ -70,7 +72,7 @@
             Main.Dock = DockStyle.Fill;
             Main.Location = new Point(0, 0);
             Main.Name = "Main";
-            Main.Size = new Size(1468, 721);
+            Main.Size = new Size(1920, 898);
             Main.TabIndex = 0;
             Main.TabStop = false;
             Main.Paint += Main_Paint;
@@ -83,7 +85,7 @@
             // 
             Menu.Anchor = AnchorStyles.None;
             Menu.BackColor = Color.FromArgb(255, 192, 128);
-            Menu.Location = new Point(12, 12);
+            Menu.Location = new Point(717, 38);
             Menu.MaximumSize = new Size(700, 700);
             Menu.Name = "Menu";
             Menu.Size = new Size(700, 700);
@@ -95,7 +97,7 @@
             Start.BackColor = Color.SaddleBrown;
             Start.Font = new Font("Segoe UI", 26.25F, FontStyle.Bold, GraphicsUnit.Point);
             Start.ForeColor = SystemColors.ButtonFace;
-            Start.Location = new Point(194, 298);
+            Start.Location = new Point(229, 350);
             Start.Name = "Start";
             Start.Size = new Size(302, 84);
             Start.TabIndex = 2;
@@ -108,7 +110,7 @@
             Resume.BackColor = Color.SaddleBrown;
             Resume.Font = new Font("Segoe UI", 26.25F, FontStyle.Bold, GraphicsUnit.Point);
             Resume.ForeColor = SystemColors.ButtonFace;
-            Resume.Location = new Point(194, 182);
+            Resume.Location = new Point(229, 242);
             Resume.Name = "Resume";
             Resume.Size = new Size(302, 84);
             Resume.TabIndex = 3;
@@ -133,9 +135,10 @@
             // 
             Player.Anchor = AnchorStyles.Top;
             Player.AutoSize = true;
+            Player.BackColor = Color.Transparent;
             Player.Font = new Font("Segoe UI", 27.75F, FontStyle.Bold, GraphicsUnit.Point);
             Player.ForeColor = SystemColors.ButtonFace;
-            Player.Location = new Point(1197, 9);
+            Player.Location = new Point(1423, 9);
             Player.Name = "Player";
             Player.Size = new Size(351, 50);
             Player.TabIndex = 6;
@@ -147,26 +150,28 @@
             timer3.Interval = 1;
             timer3.Tick += timer3_Tick;
             // 
-            // Scores
+            // lblSecondPlyerScore
             // 
-            Scores.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            Scores.AutoSize = true;
-            Scores.Font = new Font("Segoe UI", 15.75F, FontStyle.Bold, GraphicsUnit.Point);
-            Scores.ForeColor = SystemColors.ButtonFace;
-            Scores.Location = new Point(1197, 12);
-            Scores.Name = "Scores";
-            Scores.Size = new Size(214, 60);
-            Scores.TabIndex = 7;
-            Scores.Text = "First player score:\r\nSecond player score:";
+            lblSecondPlyerScore.Anchor = AnchorStyles.Top;
+            lblSecondPlyerScore.AutoSize = true;
+            lblSecondPlyerScore.BackColor = Color.Transparent;
+            lblSecondPlyerScore.Font = new Font("Segoe UI", 15.75F, FontStyle.Bold, GraphicsUnit.Point);
+            lblSecondPlyerScore.ForeColor = SystemColors.ButtonFace;
+            lblSecondPlyerScore.Location = new Point(1639, 167);
+            lblSecondPlyerScore.Margin = new Padding(0);
+            lblSecondPlyerScore.Name = "lblSecondPlyerScore";
+            lblSecondPlyerScore.Size = new Size(214, 30);
+            lblSecondPlyerScore.TabIndex = 7;
+            lblSecondPlyerScore.Text = "Second player score:";
             // 
             // ResultLabel
             // 
             ResultLabel.BackColor = Color.FromArgb(255, 192, 128);
             ResultLabel.Font = new Font("Segoe Script", 27.75F, FontStyle.Bold, GraphicsUnit.Point);
             ResultLabel.ForeColor = Color.SaddleBrown;
-            ResultLabel.Location = new Point(92, 99);
+            ResultLabel.Location = new Point(98, 123);
             ResultLabel.Name = "ResultLabel";
-            ResultLabel.Size = new Size(531, 80);
+            ResultLabel.Size = new Size(697, 80);
             ResultLabel.TabIndex = 9;
             ResultLabel.Text = "label1";
             ResultLabel.TextAlign = ContentAlignment.MiddleCenter;
@@ -176,7 +181,7 @@
             Settings.BackColor = Color.SaddleBrown;
             Settings.Font = new Font("Segoe UI", 26.25F, FontStyle.Bold, GraphicsUnit.Point);
             Settings.ForeColor = SystemColors.ButtonFace;
-            Settings.Location = new Point(194, 412);
+            Settings.Location = new Point(229, 452);
             Settings.Name = "Settings";
             Settings.Size = new Size(302, 84);
             Settings.TabIndex = 10;
@@ -188,7 +193,7 @@
             // 
             SettingsBox.Anchor = AnchorStyles.None;
             SettingsBox.BackColor = Color.FromArgb(255, 192, 128);
-            SettingsBox.Location = new Point(734, 51);
+            SettingsBox.Location = new Point(51, 102);
             SettingsBox.MaximumSize = new Size(700, 700);
             SettingsBox.Name = "SettingsBox";
             SettingsBox.Size = new Size(700, 700);
@@ -203,7 +208,7 @@
             checkBoxMusic.CheckState = CheckState.Checked;
             checkBoxMusic.Font = new Font("Segoe UI", 26.25F, FontStyle.Bold, GraphicsUnit.Point);
             checkBoxMusic.ForeColor = Color.SaddleBrown;
-            checkBoxMusic.Location = new Point(938, 190);
+            checkBoxMusic.Location = new Point(938, 167);
             checkBoxMusic.MinimumSize = new Size(300, 70);
             checkBoxMusic.Name = "checkBoxMusic";
             checkBoxMusic.Padding = new Padding(10);
@@ -222,7 +227,7 @@
             checkBoxSoundEffects.CheckState = CheckState.Checked;
             checkBoxSoundEffects.Font = new Font("Segoe UI", 26.25F, FontStyle.Bold, GraphicsUnit.Point);
             checkBoxSoundEffects.ForeColor = Color.SaddleBrown;
-            checkBoxSoundEffects.Location = new Point(938, 278);
+            checkBoxSoundEffects.Location = new Point(938, 255);
             checkBoxSoundEffects.MinimumSize = new Size(300, 70);
             checkBoxSoundEffects.Name = "checkBoxSoundEffects";
             checkBoxSoundEffects.Padding = new Padding(10);
@@ -241,7 +246,7 @@
             checkBoxAiming.CheckState = CheckState.Checked;
             checkBoxAiming.Font = new Font("Segoe UI", 26.25F, FontStyle.Bold, GraphicsUnit.Point);
             checkBoxAiming.ForeColor = Color.SaddleBrown;
-            checkBoxAiming.Location = new Point(938, 378);
+            checkBoxAiming.Location = new Point(938, 355);
             checkBoxAiming.MinimumSize = new Size(300, 70);
             checkBoxAiming.Name = "checkBoxAiming";
             checkBoxAiming.Padding = new Padding(10);
@@ -257,7 +262,7 @@
             SettingsLabel.BackColor = Color.FromArgb(255, 192, 128);
             SettingsLabel.Font = new Font("Segoe Script", 27.75F, FontStyle.Bold, GraphicsUnit.Point);
             SettingsLabel.ForeColor = Color.SaddleBrown;
-            SettingsLabel.Location = new Point(837, 87);
+            SettingsLabel.Location = new Point(837, 64);
             SettingsLabel.Name = "SettingsLabel";
             SettingsLabel.Size = new Size(531, 80);
             SettingsLabel.TabIndex = 15;
@@ -269,7 +274,7 @@
             MenuSettingButton.BackColor = Color.SaddleBrown;
             MenuSettingButton.Font = new Font("Segoe UI", 26.25F, FontStyle.Bold, GraphicsUnit.Point);
             MenuSettingButton.ForeColor = SystemColors.ButtonFace;
-            MenuSettingButton.Location = new Point(938, 468);
+            MenuSettingButton.Location = new Point(936, 568);
             MenuSettingButton.Name = "MenuSettingButton";
             MenuSettingButton.Size = new Size(302, 84);
             MenuSettingButton.TabIndex = 16;
@@ -277,12 +282,39 @@
             MenuSettingButton.UseVisualStyleBackColor = false;
             MenuSettingButton.Click += MenuSettingButton_Click;
             // 
+            // lblFirstPlyerScore
+            // 
+            lblFirstPlyerScore.AutoSize = true;
+            lblFirstPlyerScore.BackColor = Color.Transparent;
+            lblFirstPlyerScore.Font = new Font("Segoe UI", 15.75F, FontStyle.Bold, GraphicsUnit.Point);
+            lblFirstPlyerScore.ForeColor = SystemColors.ButtonFace;
+            lblFirstPlyerScore.Location = new Point(12, 167);
+            lblFirstPlyerScore.Name = "lblFirstPlyerScore";
+            lblFirstPlyerScore.Size = new Size(184, 30);
+            lblFirstPlyerScore.TabIndex = 17;
+            lblFirstPlyerScore.Text = "First player score:";
+            // 
+            // LanguageSelect
+            // 
+            LanguageSelect.BackColor = Color.SaddleBrown;
+            LanguageSelect.Font = new Font("Segoe UI", 26.25F, FontStyle.Bold, GraphicsUnit.Point);
+            LanguageSelect.ForeColor = SystemColors.ButtonFace;
+            LanguageSelect.Location = new Point(938, 455);
+            LanguageSelect.Name = "LanguageSelect";
+            LanguageSelect.Size = new Size(302, 84);
+            LanguageSelect.TabIndex = 18;
+            LanguageSelect.Text = "Ukranian";
+            LanguageSelect.UseVisualStyleBackColor = false;
+            LanguageSelect.Click += button1_Click;
+            // 
             // Billiards
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.SaddleBrown;
-            ClientSize = new Size(1468, 721);
+            ClientSize = new Size(1920, 898);
+            Controls.Add(LanguageSelect);
+            Controls.Add(lblFirstPlyerScore);
             Controls.Add(MenuSettingButton);
             Controls.Add(SettingsLabel);
             Controls.Add(checkBoxAiming);
@@ -291,7 +323,7 @@
             Controls.Add(SettingsBox);
             Controls.Add(Settings);
             Controls.Add(ResultLabel);
-            Controls.Add(Scores);
+            Controls.Add(lblSecondPlyerScore);
             Controls.Add(Player);
             Controls.Add(MenuButton);
             Controls.Add(Resume);
@@ -320,7 +352,7 @@
         public Button Resume;
         public Button MenuButton;
         public Label Player;
-        public Label Scores;
+        public Label lblSecondPlyerScore;
         public Label ResultLabel;
         public System.Windows.Forms.Timer timer3;
         public Button Settings;
@@ -330,5 +362,7 @@
         private CheckBox checkBoxAiming;
         public Label SettingsLabel;
         public Button MenuSettingButton;
+        public Label lblFirstPlyerScore;
+        public Button LanguageSelect;
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Billiard.Balls;
 
 namespace Billiard
 {
@@ -10,9 +11,9 @@ namespace Billiard
     {
         public static void DrawAim(Vector2 mouseLocation, Vector2 ballCenter, PaintEventArgs e, List<Ball> balls)
         {
-            Vector2 direction = (ballCenter - mouseLocation);
+            Vector2 direction = ballCenter - mouseLocation;
             Vector2 center = ballCenter;
-            if(direction.Length() > 1)
+            if (direction.Length() > 1)
             {
                 direction.Normalize(direction);
                 direction = direction.Scale(1500);
@@ -27,7 +28,7 @@ namespace Billiard
                     {
                         if (aimBall.DetectCollision(balls[i]))
                         {
-                            if(aimBall.collided) aimBall.ChangeVelicities(balls[i]);
+                            if (aimBall.collided) aimBall.ChangeVelicities(balls[i]);
                             aimBall.ShowBall(e);
                             a = true;
                             break;
