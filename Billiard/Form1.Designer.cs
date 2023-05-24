@@ -303,7 +303,7 @@
             LanguageSelect.Name = "LanguageSelect";
             LanguageSelect.Size = new Size(302, 84);
             LanguageSelect.TabIndex = 18;
-            LanguageSelect.Text = "Ukranian";
+            LanguageSelect.Text = "English";
             LanguageSelect.UseVisualStyleBackColor = false;
             LanguageSelect.Click += button1_Click;
             // 

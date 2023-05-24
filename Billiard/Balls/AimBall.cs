@@ -6,7 +6,6 @@ using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
-using Billiard.Balls;
 using Billiard;
 
 namespace Billiard
@@ -17,7 +16,6 @@ namespace Billiard
         protected Vector2 BallCenter = new Vector2(0, 0);
         protected Pen Pen;
         protected Brush Brush;
-        protected bool MoveBall = true;
         public static int Diameter = 30;
         protected bool Collided = false;
 
@@ -41,17 +39,6 @@ namespace Billiard
             set
             {
                 BallCenter = value;
-            }
-        }
-        public bool moveBall
-        {
-            get
-            {
-                return MoveBall;
-            }
-            set
-            {
-                MoveBall = value;
             }
         }
         public Pen pen

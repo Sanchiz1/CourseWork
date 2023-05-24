@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Billiard.Balls;
+using Billiard;
 
 namespace Billiard
 {
@@ -23,7 +23,6 @@ namespace Billiard
                     bool a = false;
                     aimBall.ballCenter = center;
                     aimBall.collided = false;
-
                     for (int i = 1; i < balls.Count(); ++i)
                     {
                         if (aimBall.DetectCollision(balls[i]))

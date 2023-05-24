@@ -6,7 +6,6 @@ using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
-using Billiard.Balls;
 using Billiard;
 
 namespace Billiard
@@ -18,7 +17,6 @@ namespace Billiard
         protected double Speed;
         protected Pen Pen;
         protected Brush Brush;
-        protected bool MoveBall = true;
         public static int Diameter = 30;
         
         public Vector2 velocity
@@ -52,17 +50,6 @@ namespace Billiard
             set
             {
                 Speed = value;
-            }
-        }
-        public bool moveBall
-        {
-            get
-            {
-                return MoveBall;
-            }
-            set
-            {
-                MoveBall = value;
             }
         }
         public Pen pen
@@ -103,8 +90,6 @@ namespace Billiard
         }
         public void MoveTheBall()
         {
-            if (MoveBall == true)
-            {
                 BallCenter.X += Velocity.X * Speed;
                 BallCenter.Y += Velocity.Y * Speed;
 
@@ -136,7 +121,6 @@ namespace Billiard
                     Velocity.Y = -Velocity.Y / 2;
                     BallCenter.Y = Game.topLeftY + Game.bottomRightY - Diameter / 2;
                 }
-            }
         }
         public bool DetectCollision(Ball ball)
         {
@@ -197,12 +181,12 @@ namespace Billiard
             if (Velocity.Length() > ball.Velocity.Length())
             {
                 ball.Speed = Speed;
-                Speed /= 2;
+                //Speed /= 2;
             }
             else if (Velocity.Length() < ball.Velocity.Length())
             {
                 Speed = ball.Speed;
-                ball.Speed /= 2;
+                //ball.Speed /= 2;
             }
             Vector2 normal1 = new Vector2();
             normal1.Normalize(BallCenter - ball.BallCenter);
@@ -212,12 +196,12 @@ namespace Billiard
             BallCenter += normal1.Scale((overlap + 1) / 2);
             ball.BallCenter += normal2.Scale((overlap + 1) / 2);
             Vector2 centresVector = BallCenter - ball.BallCenter;
-            Vector2 ballOnePerpendicular = centresVector.PerpendicularComponent(Velocity);
-            Vector2 ballTwoPerpendicular = centresVector.PerpendicularComponent(ball.Velocity);
-            Vector2 ballTwoPara = centresVector.ParralelComponent(ball.Velocity);
-            Vector2 ballOneNewVelocity = ballTwoPara + ballOnePerpendicular; //http://sinepost.wordpress.com/category/mathematics/geometry/trigonometry/
             Vector2 centresVector2 = ball.BallCenter - BallCenter;
+            Vector2 ballOnePerpendicular = centresVector.PerpendicularComponent(Velocity);
+            Vector2 ballTwoPerpendicular = centresVector2.PerpendicularComponent(ball.Velocity);
             Vector2 ballOnePara = centresVector.ParralelComponent(Velocity);
+            Vector2 ballTwoPara = centresVector2.ParralelComponent(ball.Velocity);
+            Vector2 ballOneNewVelocity = ballTwoPara + ballOnePerpendicular; //http://sinepost.wordpress.com/category/mathematics/geometry/trigonometry/
             Vector2 ballTwoNewVelocity = ballOnePara + ballTwoPerpendicular;
             ball.Velocity = ballTwoNewVelocity;
             Velocity = ballOneNewVelocity;

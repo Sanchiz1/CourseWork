@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using static System.Formats.Asn1.AsnWriter;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.Window;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
-using Billiard.Balls;
+using Billiard;
 using Billiard;
 using Billiard.Properties;
 
@@ -32,16 +32,16 @@ namespace Billiard
         Rectangle board = new Rectangle((int)topLeftX, (int)topLeftY, (int)bottomRightX, (int)bottomRightY);
         public Vector2[] positionsBall = { 
             new Vector2(topLeftX + 300, topLeftY + 280),
-            new Vector2(topLeftX + 700, topLeftY + 280),
-            new Vector2(topLeftX + 731, topLeftY + 296),
-            new Vector2(topLeftX + 731, topLeftY + 264),
-            new Vector2(topLeftX + 762, topLeftY + 280),
-            new Vector2(topLeftX + 762, topLeftY + 311),
-            new Vector2(topLeftX + 762, topLeftY + 249),
-            new Vector2(topLeftX + 793, topLeftY + 296),
-            new Vector2(topLeftX + 793, topLeftY + 264),
-            new Vector2(topLeftX + 793, topLeftY + 233),
-            new Vector2(topLeftX + 793, topLeftY + 327)};
+            new Vector2(topLeftX + 700 + 100, topLeftY + 280),
+            new Vector2(topLeftX + 731 + 100, topLeftY + 296),
+            new Vector2(topLeftX + 731 + 100, topLeftY + 264),
+            new Vector2(topLeftX + 762 + 100, topLeftY + 280),
+            new Vector2(topLeftX + 762 + 100, topLeftY + 311),
+            new Vector2(topLeftX + 762 + 100, topLeftY + 249),
+            new Vector2(topLeftX + 793 + 100, topLeftY + 296),
+            new Vector2(topLeftX + 793 + 100, topLeftY + 264),
+            new Vector2(topLeftX + 793 + 100, topLeftY + 233),
+            new Vector2(topLeftX + 793 + 100, topLeftY + 327)};
         public Vector2[] positionsHole = {
             new Vector2(topLeftX, topLeftY),
             new Vector2(topLeftX + bottomRightX / 2, topLeftY),
@@ -126,7 +126,6 @@ namespace Billiard
                 mouseLocation.X = e.X;
                 mouseLocation.Y = e.Y;
                 draweDirLine = true;
-                balls[0].moveBall = false;
             }
         }
         public void MouseMove(MouseEventArgs e)
@@ -147,7 +146,6 @@ namespace Billiard
                 {
                     ball.SetSpeed(mouseLocation, (int)topLeftX, (int)topLeftY, (int)bottomRightX, (int)bottomRightY);
                 }
-                balls[0].moveBall = true;
             }
         }
         public void MouseClick(MouseEventArgs e)
@@ -362,7 +360,7 @@ namespace Billiard
         }
         public void Resume_Click()
         {
-            if (balls.Count > 10)
+            if (balls.Count > 1)
             {
                 form.Main.Visible = true;
                 form.Menu.Visible = false;

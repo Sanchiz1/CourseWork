@@ -1,0 +1,83 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Billiard.Ball">
+    <Position X="0.5" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAACAgAACCIAAAwgAAAFEBAAEQAAAAQBAAAEAAA=</HashCode>
+      <FileName>Balls\Ball.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="1.175" />
+  </Class>
+  <Class Name="Billiard.AimBall">
+    <Position X="2.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAACBgAACAYAAAwAAAAEABAAEAAAAAQBAAAEAAA=</HashCode>
+      <FileName>Balls\AimBall.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.1" />
+  </Class>
+  <Class Name="Billiard.MainBall">
+    <Position X="2.25" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAQAAA=</HashCode>
+      <FileName>Balls\MainBall.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Billiard.Aim">
+    <Position X="4" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Mechanics\Aim.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Billiard.Game">
+    <Position X="5.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gQBABAAAAJgAQEAEAAAgAASgAACAMACAICCAAILwADA=</HashCode>
+      <FileName>Game.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Billiard.ScoredBalls">
+    <Position X="4" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AABAAgAAAAAAAAEAAAAAAABAAAAAAAAAAAAAIAEACIA=</HashCode>
+      <FileName>Mechanics\ScoredBalls.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Billiard.Settings">
+    <Position X="7.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACAAAEAiAABAAgAAQAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Settings.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Billiard.Sound">
+    <Position X="7.5" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAA=</HashCode>
+      <FileName>Sounds\Sound.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Billiard.Vector2">
+    <Position X="9.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAwAQAAAAAAAAE8AMAAABAACAAAAAAAABgAAAAYAA=</HashCode>
+      <FileName>Mechanics\Vector2.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Billiard.Hole">
+    <Position X="4" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAACAogAAAAIAAAAAAAEAEAAAABAAAAAAA=</HashCode>
+      <FileName>Holes\Hole.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Interface Name="Billiard.IBall">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAACAAAAAAAAAAAAAAAAABAAEAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Balls\IBall.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

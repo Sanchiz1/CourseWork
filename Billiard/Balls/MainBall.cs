@@ -41,7 +41,6 @@ namespace Billiard
                 Velocity.X = Velocity.X / length;
                 Velocity.Y = Velocity.Y / length;
             }
-            MoveBall = false;
         }
     }
 }
