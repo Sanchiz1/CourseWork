@@ -10,6 +10,6 @@ namespace Billiard
     {
         public void ShowBall(PaintEventArgs e);
         public bool DetectCollision(Ball ball);
-        public void ChangeVelicities(Ball ball);
+        public void ChangeDirections(Ball ball);
     }
 }

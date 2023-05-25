@@ -7,9 +7,8 @@ using System.Threading.Tasks;
 using static System.Formats.Asn1.AsnWriter;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.Window;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
-using Billiard;
-using Billiard;
 using Billiard.Properties;
+using Billiard.Mechanics;
 
 namespace Billiard
 {
@@ -25,23 +24,20 @@ namespace Billiard
         public static float bottomRightY = 540;
         bool NextTurn = true;
         bool PlayerTurn = true;
-        bool WhiteBallMissing = false;
-        int FirstPlayerScore = 0;
-        int SecondPlayerScore = 0;
         int ballsCount = 0;
         Rectangle board = new Rectangle((int)topLeftX, (int)topLeftY, (int)bottomRightX, (int)bottomRightY);
         public Vector2[] positionsBall = { 
             new Vector2(topLeftX + 300, topLeftY + 280),
-            new Vector2(topLeftX + 700 + 100, topLeftY + 280),
-            new Vector2(topLeftX + 731 + 100, topLeftY + 296),
-            new Vector2(topLeftX + 731 + 100, topLeftY + 264),
-            new Vector2(topLeftX + 762 + 100, topLeftY + 280),
-            new Vector2(topLeftX + 762 + 100, topLeftY + 311),
-            new Vector2(topLeftX + 762 + 100, topLeftY + 249),
-            new Vector2(topLeftX + 793 + 100, topLeftY + 296),
-            new Vector2(topLeftX + 793 + 100, topLeftY + 264),
-            new Vector2(topLeftX + 793 + 100, topLeftY + 233),
-            new Vector2(topLeftX + 793 + 100, topLeftY + 327)};
+            new Vector2(topLeftX + 800, topLeftY + 280),
+            new Vector2(topLeftX + 831, topLeftY + 296),
+            new Vector2(topLeftX + 831, topLeftY + 264),
+            new Vector2(topLeftX + 862, topLeftY + 280),
+            new Vector2(topLeftX + 862, topLeftY + 311),
+            new Vector2(topLeftX + 862, topLeftY + 249),
+            new Vector2(topLeftX + 893, topLeftY + 296),
+            new Vector2(topLeftX + 893, topLeftY + 264),
+            new Vector2(topLeftX + 893, topLeftY + 233),
+            new Vector2(topLeftX + 893, topLeftY + 327)};
         public Vector2[] positionsHole = {
             new Vector2(topLeftX, topLeftY),
             new Vector2(topLeftX + bottomRightX / 2, topLeftY),
@@ -52,7 +48,7 @@ namespace Billiard
         public List<Color> colors = new List<Color>();
         List<Ball> balls = new List<Ball>();
         List<Hole> holes = new List<Hole>();
-        public ScoredBalls scoredBalls;
+        public ScoredBalls scoredBalls = new ScoredBalls();
 
         public Game()
         {
@@ -61,10 +57,7 @@ namespace Billiard
         {
             form.Menu.Visible = false;
             form.Main.Visible = true;
-            FirstPlayerScore = 0;
-            SecondPlayerScore = 0;
             PlayerTurn = true;
-            WhiteBallMissing = false;
             NextTurn = true;
             form.Resume.Visible = true;
             form.ResultLabel.Visible = false;
@@ -98,7 +91,7 @@ namespace Billiard
             {
                 balls[i].ShowBall(e);
             }
-            if (draweDirLine && !WhiteBallMissing)
+            if (draweDirLine && ballsCount == 0)
             {
                 e.Graphics.DrawLine(blackPen, (int)mouseLocation.X, (int)mouseLocation.Y, (int)balls[0].ballCenter.X, (int)balls[0].ballCenter.Y);
                 if(form.settings.aim) Aim.DrawAim(mouseLocation, balls[0].ballCenter, e, balls);
@@ -144,15 +137,15 @@ namespace Billiard
 
                 if (balls[0] is MainBall ball)
                 {
-                    ball.SetSpeed(mouseLocation, (int)topLeftX, (int)topLeftY, (int)bottomRightX, (int)bottomRightY);
+                    ball.SetSpeed(mouseLocation);
                 }
             }
         }
         public void MouseClick(MouseEventArgs e)
         {
-            if (WhiteBallMissing && NextTurn)
+            if (ballsCount == 1 && NextTurn)
             {
-                balls[0].velocity = new Vector2(0, 0);
+                balls[0].direction = new Vector2(0, 0);
                 balls[0].speed = 1;
                 balls[0].ballCenter.X = e.X;
                 balls[0].ballCenter.Y = e.Y;
@@ -171,7 +164,7 @@ namespace Billiard
                         a = false;
                     }
                 }
-                for (int i = ballsCount; i < holes.Count; ++i)
+                for (int i = 0; i < holes.Count; ++i)
                 {
                     if (holes[i].DetectCollision(balls[0]))
                     {
@@ -181,7 +174,6 @@ namespace Billiard
                 if (a)
                 {
                     ballsCount = 0;
-                    WhiteBallMissing = false;
                     form.Main.Cursor = Cursors.Default;
                     form.timer3.Start();
                 }
@@ -199,8 +191,8 @@ namespace Billiard
                 {
                     if (balls[i].DetectCollision(balls[j]))
                     {
-                        if (form.settings.soundEffects) Sound.MakeSound(Application.StartupPath + "\\Sounds/sound1.wav");
-                        balls[i].ChangeVelicities(balls[j]);
+                        if (form.settings.soundEffects) Sound.MakeSound(Application.StartupPath + "\\/Sounds/collision.wav");
+                        balls[i].ChangeDirections(balls[j]);
                     }
                 }
             }
@@ -210,24 +202,21 @@ namespace Billiard
                 {
                     if (holes[i].DetectCollision(balls[j]) && balls[j] != balls[0])
                     {
-                        if(form.settings.soundEffects) Sound.MakeSound(Application.StartupPath + "\\Sounds/hole.wav");
+                        if(form.settings.soundEffects) Sound.MakeSound(Application.StartupPath + "\\/Sounds/hole.wav");
                         if (PlayerTurn)
                         {
-                            FirstPlayerScore++;
                             scoredBalls.FirstPlayerScored(balls[j]);
                         }
                         else
                         {
-                            SecondPlayerScore++;
                             scoredBalls.SecondPlayerScored(balls[j]);
                         }
                         balls.RemoveAt(j);
                     }
                     else if (holes[i].DetectCollision(balls[j]) && balls[j] == balls[0])
                     {
-                        if (form.settings.soundEffects) Sound.MakeSound(Application.StartupPath + "\\Sounds/hole.wav");
+                        if (form.settings.soundEffects) Sound.MakeSound(Application.StartupPath + "\\/Sounds/hole.wav");
                         ballsCount = 1;
-                        WhiteBallMissing = true;
                         form.Main.Cursor = Cursors.Hand;
                     }
                 }
@@ -246,8 +235,8 @@ namespace Billiard
                 {
                     if (balls[i].DetectCollision(balls[j]))
                     {
-                        if (form.settings.soundEffects) Sound.MakeSound(Application.StartupPath + "\\Sounds/sound1.wav");
-                        balls[i].ChangeVelicities(balls[j]);
+                        if (form.settings.soundEffects) Sound.MakeSound(Application.StartupPath + "\\/Sounds/collision.wav");
+                        balls[i].ChangeDirections(balls[j]);
                     }
                 }
             }
@@ -258,7 +247,7 @@ namespace Billiard
             bool a = true;
             for (int i = ballsCount; i < balls.Count; ++i)
             {
-                if (balls[i].velocity.Length() != 0)
+                if (balls[i].direction.Length() != 0)
                 {
                     a = false;
                 }
@@ -297,21 +286,21 @@ namespace Billiard
             }
             if (form.settings.language == "Українська")
             {
-                form.lblFirstPlyerScore.Text = $"Рахунок першого гравця: {FirstPlayerScore}";
-                form.lblSecondPlyerScore.Text = $"Рахунок другого гравця: {SecondPlayerScore}";
+                form.lblFirstPlyerScore.Text = $"Рахунок першого гравця: {scoredBalls.FirstPlayerBalls.Count()}";
+                form.lblSecondPlyerScore.Text = $"Рахунок другого гравця: {scoredBalls.SecondPlayerBalls.Count()}";
             }
             else
             {
-                form.lblFirstPlyerScore.Text = $"First player score: {FirstPlayerScore}";
-                form.lblSecondPlyerScore.Text = $"Second player score: {SecondPlayerScore}";
+                form.lblFirstPlyerScore.Text = $"First player score: {scoredBalls.FirstPlayerBalls.Count()}";
+                form.lblSecondPlyerScore.Text = $"Second player score: {scoredBalls.SecondPlayerBalls.Count()}";
             }
             
-            if (FirstPlayerScore + SecondPlayerScore == 10)
+            if (scoredBalls.FirstPlayerBalls.Count() + scoredBalls.SecondPlayerBalls.Count() == 10)
             {
                 EndGame();
                 form.timer3.Stop();
             }
-            if (WhiteBallMissing && NextTurn)
+            if (ballsCount == 1 && NextTurn)
             {
                 form.timer3.Stop();
             }
@@ -323,7 +312,7 @@ namespace Billiard
             form.Menu.BringToFront();
             form.Resume.Visible = false;
             form.ResultLabel.Visible = true;
-            if (FirstPlayerScore > SecondPlayerScore)
+            if (scoredBalls.FirstPlayerBalls.Count() > scoredBalls.SecondPlayerBalls.Count())
             {
                 if (form.settings.language == "Українська")
                 {
@@ -334,7 +323,7 @@ namespace Billiard
                     form.ResultLabel.Text = "FIRST PLAYER WON!";
                 }
             }
-            else if (SecondPlayerScore > FirstPlayerScore)
+            else if (scoredBalls.SecondPlayerBalls.Count() > scoredBalls.FirstPlayerBalls.Count())
             {
                 if (form.settings.language == "Українська")
                 {

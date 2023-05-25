@@ -27,7 +27,7 @@ namespace Billiard
                     {
                         if (aimBall.DetectCollision(balls[i]))
                         {
-                            if (aimBall.collided) aimBall.ChangeVelicities(balls[i]);
+                            if (aimBall.collided) aimBall.ChangeDirections(balls[i]);
                             aimBall.ShowBall(e);
                             a = true;
                             break;

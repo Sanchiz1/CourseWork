@@ -80,8 +80,7 @@ namespace Billiard
             game = new Game();
             settings = new Settings();
             settings.language = "English";
-            //if (settings.music) Sound.MakeSoundOnLoop(Application.StartupPath + "\\Sounds/sound2.wav");
-            var audioFile = new WaveFileReader(Application.StartupPath + "\\Sounds/sound2.wav");
+            var audioFile = new WaveFileReader(Application.StartupPath + "\\/Sounds/music.wav");
             var loopingStream = new LoopStream(audioFile);
             waveOut.DeviceNumber = 0;
             waveOut.Init(loopingStream);
@@ -195,7 +194,7 @@ namespace Billiard
                 checkBoxSoundEffects.Text = "Sound effects";
                 checkBoxAiming.Text = "Aiming";
                 SettingsLabel.Text = "Settings";
-                MenuSettingButton.Text = "Settings";
+                MenuSettingButton.Text = "Menu";
                 LanguageSelect.Text = "English";
                 settings.language = "English";
                 lblFirstPlyerScore.Location = new Point(lblFirstPlyerScore.Location.X + 7, lblFirstPlyerScore.Location.Y);
@@ -210,10 +209,43 @@ namespace Billiard
                 checkBoxSoundEffects.Text = "Звукові ефекти";
                 checkBoxAiming.Text = "Прицілювання";
                 SettingsLabel.Text = "Налаштування";
-                MenuSettingButton.Text = "Налаштування";
+                MenuSettingButton.Text = "Меню";
                 LanguageSelect.Text = "Українська";
                 settings.language = "Українська";
                 lblFirstPlyerScore.Location = new Point(lblFirstPlyerScore.Location.X - 7, lblFirstPlyerScore.Location.Y);
+            }
+            if (game.scoredBalls.FirstPlayerBalls.Count() > game.scoredBalls.SecondPlayerBalls.Count())
+            {
+                if (settings.language == "Українська")
+                {
+                    ResultLabel.Text = "ПЕРШИЙ ГРАВЕЦЬ ПЕРЕМІГ!";
+                }
+                else
+                {
+                    ResultLabel.Text = "FIRST PLAYER WON!";
+                }
+            }
+            else if (game.scoredBalls.SecondPlayerBalls.Count() > game.scoredBalls.FirstPlayerBalls.Count())
+            {
+                if (settings.language == "Українська")
+                {
+                    ResultLabel.Text = "ДРУГИЙ ГРАВЕЦЬ ПЕРЕМІГ!";
+                }
+                else
+                {
+                    ResultLabel.Text = "SECOND PLAYER WON!";
+                }
+            }
+            else
+            {
+                if (settings.language == "Українська")
+                {
+                    ResultLabel.Text = "НІЧИЯ!";
+                }
+                else
+                {
+                    ResultLabel.Text = "DRAW!";
+                }
             }
         }
     }

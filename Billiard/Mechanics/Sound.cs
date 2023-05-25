@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Billiard
+namespace Billiard.Mechanics
 {
     public static class Sound
     {

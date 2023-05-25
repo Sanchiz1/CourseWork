@@ -9,8 +9,8 @@ namespace Billiard
 {
     public class ScoredBalls
     {
-        List<Ball> FirstPlayerBalls = new List<Ball>();
-        List<Ball> SecondPlayerBalls = new List<Ball>();
+        public List<Ball> FirstPlayerBalls = new List<Ball>();
+        public List<Ball> SecondPlayerBalls = new List<Ball>();
         List<Ball> places1 = new List<Ball>();
         List<Ball> places2 = new List<Ball>();
         public void GeneratePlaces()
