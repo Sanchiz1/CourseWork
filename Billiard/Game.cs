@@ -49,7 +49,6 @@ namespace Billiard
         List<Ball> balls = new List<Ball>();
         List<Hole> holes = new List<Hole>();
         public ScoredBalls scoredBalls = new ScoredBalls();
-
         public Game()
         {
         }
@@ -184,9 +183,6 @@ namespace Billiard
             for (int i = ballsCount; i < balls.Count / 2; ++i)
             {
                 balls[i].MoveTheBall();
-            }
-            for (int i = ballsCount; i < balls.Count / 2; ++i)
-            {
                 for (int j = i + 1; j < balls.Count; ++j)
                 {
                     if (balls[i].DetectCollision(balls[j]))
@@ -195,29 +191,26 @@ namespace Billiard
                         balls[i].ChangeDirections(balls[j]);
                     }
                 }
-            }
-            for (int i = 0; i < holes.Count; ++i)
-            {
-                for (int j = ballsCount; j < balls.Count; ++j)
+                for (int j = 0; j < holes.Count; ++j)
                 {
-                    if (holes[i].DetectCollision(balls[j]) && balls[j] != balls[0])
-                    {
-                        if(form.settings.soundEffects) Sound.MakeSound(Application.StartupPath + "\\/Sounds/hole.wav");
-                        if (PlayerTurn)
-                        {
-                            scoredBalls.FirstPlayerScored(balls[j]);
-                        }
-                        else
-                        {
-                            scoredBalls.SecondPlayerScored(balls[j]);
-                        }
-                        balls.RemoveAt(j);
-                    }
-                    else if (holes[i].DetectCollision(balls[j]) && balls[j] == balls[0])
+                    if (holes[j].DetectCollision(balls[i]) && balls[i] == balls[0])
                     {
                         if (form.settings.soundEffects) Sound.MakeSound(Application.StartupPath + "\\/Sounds/hole.wav");
                         ballsCount = 1;
                         form.Main.Cursor = Cursors.Hand;
+                    }
+                    else if(holes[j].DetectCollision(balls[i]) && balls[i] != balls[0])
+                    {
+                        if (form.settings.soundEffects) Sound.MakeSound(Application.StartupPath + "\\/Sounds/hole.wav");
+                        if (PlayerTurn)
+                        {
+                            scoredBalls.FirstPlayerScored(balls[i]);
+                        }
+                        else
+                        {
+                            scoredBalls.SecondPlayerScored(balls[i]);
+                        }
+                        balls.RemoveAt(i);
                     }
                 }
             }
@@ -228,15 +221,35 @@ namespace Billiard
             for (int i = balls.Count / 2; i < balls.Count; ++i)
             {
                 balls[i].MoveTheBall();
-            }
-            for (int i = balls.Count / 2; i < balls.Count; ++i)
-            {
                 for (int j = i + 1; j < balls.Count; ++j)
                 {
                     if (balls[i].DetectCollision(balls[j]))
                     {
                         if (form.settings.soundEffects) Sound.MakeSound(Application.StartupPath + "\\/Sounds/collision.wav");
                         balls[i].ChangeDirections(balls[j]);
+                    }
+                }
+                for (int j = 0; j < holes.Count; ++j)
+                {
+                    if (holes[j].DetectCollision(balls[i]) && balls[i] == balls[0])
+                    {
+                        if (form.settings.soundEffects) Sound.MakeSound(Application.StartupPath + "\\/Sounds/hole.wav");
+                        ballsCount = 1;
+                        form.Main.Cursor = Cursors.Hand;
+                    }
+                    else if (holes[j].DetectCollision(balls[i]) && balls[i] != balls[0])
+                    {
+                        if (form.settings.soundEffects) Sound.MakeSound(Application.StartupPath + "\\/Sounds/hole.wav");
+                        if (PlayerTurn)
+                        {
+                            scoredBalls.FirstPlayerScored(balls[i]);
+                        }
+                        else
+                        {
+                            scoredBalls.SecondPlayerScored(balls[i]);
+                        }
+                        balls.RemoveAt(i);
+                        if (i == balls.Count) break;
                     }
                 }
             }

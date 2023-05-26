@@ -96,7 +96,7 @@ namespace Billiard
             Direction.X *= 0.995;
             Direction.Y *= 0.995;
 
-            if ((Direction.X < 0.03 && Direction.X > -0.03) && (Direction.Y < 0.03 && Direction.Y > -0.03))
+            if ((Direction.X < 0.05 && Direction.X > -0.05) && (Direction.Y < 0.05 && Direction.Y > -0.05))
             {
                 Direction.X = 0;
                 Direction.Y = 0;
